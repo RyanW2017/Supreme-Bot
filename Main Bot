@@ -1,0 +1,88 @@
+'''
+
+
+
+WELCOME TO SUPREME BOT VERSION 1.0.0, CURRENTLY A CLOTHING ONLY BOT!!!!
+
+PLEASE VISIT CONFIG.PY TO BEGIN
+
+PLEASE READ EVERYTHING BEFORE RUNNING THE BOT, THANK YOU!!!
+
+COPY A URL AND ENTER IT INTO GOOGLE AND PICK THE ITEM YOU WANT TO BUY.
+
+THESE ARE ALL THE URL'S FOR THE PRODUCTS YOU CAN CHOOSE FROM:
+
+https://www.supremenewyork.com/shop/new
+https://www.supremenewyork.com/shop/all/jackets
+https://www.supremenewyork.com/shop/all/shirts
+https://www.supremenewyork.com/shop/all/tops_sweaters
+https://www.supremenewyork.com/shop/all/sweatshirts
+https://www.supremenewyork.com/shop/all/pants
+https://www.supremenewyork.com/shop/all/t-shirts
+
+
+
+ONCE YOU HAVE CHOSEN A PRODUCT, GO TO YOUR CONSOLE AND RUN SUP.PY
+
+FIRST YOU WILL BE PROMTED TO ENTER THE URL YOU HAVE CHOSEN
+
+NEXT, YOU WILL ENTER THE NAME/KEYWORDS OF THE ITEM YOU CHOOSE, MAKE SURE IT IS IN STOCK (DOESNT HAVE TO BE THE ENTIRE NAME, JUST MAKE SURE IT IS DETAILED ENOUGH)
+
+THEN YOU WILL BE ASKED WHICH SIZE AND COLOR (AGAIN, MAKE SURE IT IS IN STOCK)
+
+THEN THE BOT WILL FIND THE ITEM AND BUY IT FOR YOU
+
+YOU WILL HAVE TO MANUALLY ENTER YOUR CC CVV # AS WELL AS SOLVE THE CAPTCHA AT THE END. THIS IS TO PREVENT BEING BANNED FOR USING AN AUTOMATED PROGRAM
+
+I ADDED A SLEEP AT THE END, IN CASE YOU TYPE IN A WRONG NUMBER OR SOMETHING HAPPENS, IT IS A SAFETY NET TO ENSURE YOU GET THE PRODUCT YOU WANT BEFORE THE BOT CLOSES
+
+THANK YOU AND GOOD LUCK!!!!
+
+
+
+'''
+from config import keys
+from selenium import webdriver
+from selenium.webdriver.support.select import Select
+import time
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+
+keys['category_url'] = input('Enter the category URL in which your product is located:')
+keys['keyword'] = input('Enter Keyword:')
+keys['color'] = input('Enter a Color:')
+keys['size'] = input('Enter a Size:')
+
+
+
+def order(k):
+
+	driver = webdriver.Chrome('./chromedriver')
+	driver.get(k['category_url'])
+	driver.find_element_by_partial_link_text(k['keyword']).click()
+	time.sleep(.5)
+	driver.find_element_by_xpath('//img[@alt="'+k['color']+'"]').click()
+	time.sleep(.5)
+	driver.find_element_by_xpath('//*[@id="s"]').send_keys(k['size'])
+	driver.find_element_by_xpath('//*[@id="add-remove-buttons"]/input').click()
+	time.sleep(.5)
+	driver.find_element_by_xpath('//*[@id="cart"]/a[2]').click()
+	driver.find_element_by_xpath('//*[@id="order_billing_name"]').send_keys(k['name']) 
+	driver.find_element_by_xpath('//*[@id="order_email"]').send_keys(k['email'])
+	driver.find_element_by_xpath('//*[@id="order_tel"]').send_keys(k['phone_number'])
+	driver.find_element_by_xpath('//*[@id="bo"]').send_keys(k['address'])
+	driver.find_element_by_xpath('//*[@id="order_billing_zip"]').send_keys(k['zip'])
+	driver.find_element_by_xpath('//*[@id="order_billing_city"]').send_keys(k['city'])
+	driver.find_element_by_xpath('//*[@id="order_billing_state"]').send_keys(k['state'])
+	driver.find_element_by_xpath('//*[@id="rnsnckrn"]').send_keys(k['CC'])
+	driver.find_element_by_xpath('//*[@id="credit_card_month"]').send_keys(k['month'])
+	driver.find_element_by_xpath('//*[@id="credit_card_year"]').send_keys(k['year'])
+	driver.find_element_by_xpath('//*[@id="cart-cc"]/fieldset/p[2]/label/div/ins').click()
+	time.sleep(1)
+	driver.find_element_by_xpath('//*[@id="pay"]/input').click()
+	time.sleep(120)
+
+
+if __name__ == '__main__':
+	order(keys)
