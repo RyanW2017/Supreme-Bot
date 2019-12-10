@@ -1,0 +1,30 @@
+'''
+
+HELLO!!!! GLAD TO SEE YOU MADE IT OVER HERE SAFELY
+
+THIS IS YOUR DICTIONARY OF KEYS
+
+TO BEGIN, YOU MUST ENTER YOUR PERSONAL INFORMATION (STATE MUST BE 2 CAPITAL LETTER ABREVIATION)
+
+ONCE COMPLETED, HEAD BACK ON OVER TO SUP.PY TO CONTINUE
+
+'''
+
+keys = {
+	'size':'userinput',
+	'color': 'userinput',
+	'keyword':'userinput',
+	'category_url':'userinput',
+	'name':'*',
+	'email':'*',
+	'phone_number':'*',
+	'address':'*',
+	'zip':'*',
+	'city':'*',
+	'state':'*',
+	'CC':'*',
+	'month':'*',
+	'year':'*'
+
+}
+
