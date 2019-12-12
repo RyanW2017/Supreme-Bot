@@ -61,7 +61,7 @@ def order(k):
 	driver = webdriver.Chrome('./chromedriver')
 	driver.get(k['category_url'])
 	driver.find_element_by_partial_link_text(k['keyword']).click()
-	time.sleep(.5)
+	time.sleep(.75)
 	driver.find_element_by_xpath('//img[@alt="'+k['color']+'"]').click()
 	time.sleep(.5)
 	driver.find_element_by_xpath('//*[@id="s"]').send_keys(k['size'])
